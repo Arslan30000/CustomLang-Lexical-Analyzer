@@ -1,0 +1,12 @@
+start
+  declare validVar = 100;
+  
+  ## This file contains deliberate errors
+  
+  declare invalid$Var = 50;   ## Error: '$' is not allowed
+  declare @user = "test";     ## Error: '@' is not allowed
+  
+  declare 123var = 10;        ## Error: ID cannot start with digit (Lexed as Int then ID)
+  
+  declare tooLong = ThisIdentifierIsWayTooLongAndShouldTriggerAnErrorBecauseItIsMoreThan31Characters;
+finish

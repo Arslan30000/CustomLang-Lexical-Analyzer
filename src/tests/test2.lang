@@ -1,0 +1,19 @@
+start
+  declare Result = 0;
+  declare Pi = 3.14159;
+  declare Scientific = 1.5e-10;
+
+  #| 
+     Complex arithmetic test 
+  |#
+  
+  Result = 10 * (2 + 5) - 4 / 2;
+  
+  loop (Result >= 1.0) {
+      if (Result != 0) {
+          Result = Result - 1.5;
+          output "Decrementing...";
+      }
+      continue;
+  }
+finish

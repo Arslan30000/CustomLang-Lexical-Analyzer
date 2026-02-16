@@ -1,0 +1,12 @@
+start
+  declare Message = "Hello, World!";
+  declare CharA = 'A';
+  declare CharB = '\n'; 
+  
+  if (CharA == 'A') {
+      output "Match found";
+  }
+  
+  declare EmptyString = "";
+  declare TrickyString = "This has \"quotes\" inside";
+finish
