@@ -13,7 +13,7 @@ Team Members:
 Language Name: CustomLang
 File Extension: .lang
 
-This project implements a lexical analyzer (scanner) capable of tokenizing sourceS
+This project implements a lexical analyzer (scanner) capable of tokenizing source
 code written in CustomLang. As per assignment instructions and TA clarification, 
 the scanner focuses strictly on 7 specific token types using both Manual DFA 
 and JFlex implementations.
@@ -61,10 +61,10 @@ Navigate to the root project folder and run:
 `javac src/*.java`
 
 ### Step 2: Running the Manual Scanner
-`java -cp src src.ManualScanner tests/test1.lang`
+`java src.ManualScanner`
 
 ### Step 3: Running the JFlex Scanner
-`java -cp src src.JFlexTest tests/test2.lang`
+`java src.JFlexTest`
 
 --------------------------------------------------------------------------------
 
