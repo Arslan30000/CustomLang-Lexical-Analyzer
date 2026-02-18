@@ -1,30 +1,11 @@
+package src;
 public enum TokenType {
-    // Keywords
-    KEYWORD,
-    
-    // Identifiers
-    IDENTIFIER,
-    
-    // Literals
-    INTEGER_LITERAL,
-    FLOAT_LITERAL,
-    STRING_LITERAL,
-    CHAR_LITERAL,
-    BOOLEAN_LITERAL,
-    
-    // Operators
-    ARITHMETIC_OP,
-    RELATIONAL_OP,
-    LOGICAL_OP,
-    ASSIGNMENT_OP,
-    INC_DEC_OP,
-    
-    // Punctuators
-    PUNCTUATOR,
-    
-    // End of File
-    EOF,
-    
-    // Error
-    ERROR
+    IDENTIFIER,         // e.g., Count, Val1
+    INTEGER_LITERAL,    // e.g., 10, -5
+    FLOAT_LITERAL,      // e.g., 3.14, 1.5e-10
+    BOOLEAN_LITERAL,    // true or false
+    ARITHMETIC_OP,      // +, -, *, /, %
+    PUNCTUATOR,         // (, ), {, }, [, ], ,, ;, :
+    EOF,                // End of file marker
+    ERROR               // Used when lexical errors occur
 }

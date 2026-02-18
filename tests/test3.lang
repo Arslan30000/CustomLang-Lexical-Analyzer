@@ -1,0 +1,5 @@
+## Test 3: Formatting and punctuators
+{
+  Data % 5 ;
+  [ ArrayItem , 100 ] ;
+}

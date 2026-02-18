@@ -3,6 +3,7 @@
 // source: src/Scanner.flex
 
 /* 1. User Code Section */
+package src;
 import java.io.IOException;
 
 
@@ -34,7 +35,7 @@ public class Yylex {
   private static final int [] ZZ_CMAP_TOP = zzUnpackcmap_top();
 
   private static final String ZZ_CMAP_TOP_PACKED_0 =
-    "\1\0\37\u0100\1\u0200\267\u0100\10\u0300\u1020\u0100";
+    "\1\0\u10ff\u0100";
 
   private static int [] zzUnpackcmap_top() {
     int [] result = new int[4352];
@@ -62,18 +63,15 @@ public class Yylex {
   private static final int [] ZZ_CMAP_BLOCKS = zzUnpackcmap_blocks();
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
-    "\11\0\1\1\1\2\1\3\1\4\1\5\22\0\1\1"+
-    "\1\6\1\7\1\10\1\0\1\11\1\12\1\13\2\14"+
-    "\1\15\1\16\1\14\1\17\1\20\1\21\12\22\2\14"+
-    "\1\23\1\24\1\23\2\0\4\25\1\26\25\25\1\14"+
-    "\1\27\1\14\3\0\1\30\1\31\1\32\1\33\1\34"+
-    "\1\35\1\36\1\37\1\40\1\36\1\41\1\42\1\36"+
-    "\1\43\1\44\1\45\1\36\1\46\1\47\1\50\1\51"+
-    "\5\36\1\14\1\52\1\14\7\0\1\3\u01a2\0\2\3"+
-    "\326\0\u0100\3";
+    "\11\0\1\1\1\2\1\0\1\1\1\3\22\0\1\1"+
+    "\2\0\1\4\1\0\1\5\2\0\2\6\1\5\1\7"+
+    "\1\6\1\7\1\10\1\5\12\11\2\6\5\0\4\12"+
+    "\1\13\25\12\1\6\1\0\1\6\3\0\1\14\3\15"+
+    "\1\16\1\17\5\15\1\20\5\15\1\21\1\22\1\23"+
+    "\1\24\5\15\1\6\1\0\1\6\u0182\0";
 
   private static int [] zzUnpackcmap_blocks() {
-    int [] result = new int[1024];
+    int [] result = new int[512];
     int offset = 0;
     offset = zzUnpackcmap_blocks(ZZ_CMAP_BLOCKS_PACKED_0, offset, result);
     return result;
@@ -97,16 +95,13 @@ public class Yylex {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\2\2\1\3\2\1\1\4\2\1\1\5"+
-    "\4\4\1\6\1\7\1\10\1\11\14\1\1\7\1\0"+
-    "\1\12\1\2\1\0\1\3\2\0\1\10\1\13\1\0"+
-    "\1\11\7\0\1\14\7\0\1\15\1\16\1\11\14\0"+
-    "\1\16\1\0\1\11\10\0\1\17\1\16\1\0\1\16"+
-    "\1\11\5\0\1\16\1\11\2\0\1\16\1\11\1\16"+
-    "\30\11";
+    "\1\0\1\1\2\2\1\1\1\3\1\4\1\3\1\5"+
+    "\1\6\2\1\1\2\1\0\1\6\2\0\1\7\1\6"+
+    "\2\0\1\7\1\0\1\6\1\10\1\7\1\0\1\7"+
+    "\1\6\1\7\1\6\1\7\1\6\1\7\30\6";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[125];
+    int [] result = new int[58];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -131,25 +126,17 @@ public class Yylex {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\53\0\53\0\126\0\201\0\254\0\327\0\53"+
-    "\0\u0102\0\u012d\0\53\0\u0158\0\u0183\0\u01ae\0\u01d9\0\u0204"+
-    "\0\201\0\201\0\u022f\0\u025a\0\u0285\0\u02b0\0\u02db\0\u0306"+
-    "\0\u0331\0\u035c\0\u0387\0\u03b2\0\u03dd\0\u0408\0\u0433\0\53"+
-    "\0\254\0\53\0\u045e\0\u0489\0\53\0\u04b4\0\u04df\0\53"+
-    "\0\53\0\u050a\0\u0535\0\u0560\0\u058b\0\u05b6\0\u05e1\0\u060c"+
-    "\0\u0637\0\u0662\0\53\0\u068d\0\u06b8\0\u06e3\0\u070e\0\u0739"+
-    "\0\u0764\0\u078f\0\53\0\u07ba\0\u07e5\0\u0810\0\u083b\0\u0866"+
-    "\0\u0891\0\u08bc\0\u08e7\0\u0912\0\u093d\0\u0968\0\u0993\0\u09be"+
-    "\0\u09e9\0\u0a14\0\u0a3f\0\u0a6a\0\u0a95\0\u0ac0\0\u0aeb\0\u0b16"+
-    "\0\u0b41\0\u0b6c\0\u0b97\0\u0bc2\0\53\0\u0bed\0\u0c18\0\u0c18"+
-    "\0\u0c43\0\u0c6e\0\u0c99\0\u0cc4\0\u0cef\0\u0d1a\0\u0d45\0\u0d70"+
-    "\0\u0d9b\0\u0dc6\0\u0df1\0\u0e1c\0\u0e47\0\u0e72\0\u0e9d\0\u0ec8"+
-    "\0\u0ef3\0\u0f1e\0\u0f49\0\u0f74\0\u0f9f\0\u0fca\0\u0ff5\0\u1020"+
-    "\0\u104b\0\u1076\0\u10a1\0\u10cc\0\u10f7\0\u1122\0\u114d\0\u1178"+
-    "\0\u11a3\0\u11ce\0\u11f9\0\u1224\0\53";
+    "\0\0\0\25\0\25\0\52\0\77\0\25\0\25\0\124"+
+    "\0\151\0\176\0\223\0\250\0\275\0\322\0\347\0\374"+
+    "\0\u0111\0\u0126\0\u013b\0\u0150\0\u0165\0\u017a\0\u018f\0\u01a4"+
+    "\0\25\0\u01b9\0\u01ce\0\u01ce\0\u01e3\0\u01f8\0\u020d\0\u0222"+
+    "\0\u0237\0\u024c\0\u0261\0\u0276\0\u028b\0\u02a0\0\u02b5\0\u02ca"+
+    "\0\u02df\0\u02f4\0\u0309\0\u031e\0\u0333\0\u0348\0\u035d\0\u0372"+
+    "\0\u0387\0\u039c\0\u03b1\0\u03c6\0\u03db\0\u03f0\0\u0405\0\u041a"+
+    "\0\u042f\0\25";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[125];
+    int [] result = new int[58];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -172,56 +159,35 @@ public class Yylex {
   private static final int [] ZZ_TRANS = zzUnpacktrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\2\3\1\2\1\3\1\4\1\5\1\6\1\7"+
-    "\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\2"+
-    "\1\17\1\20\1\21\1\22\2\23\2\2\1\24\1\25"+
-    "\1\26\1\27\1\30\2\2\1\31\1\2\1\32\1\2"+
-    "\1\33\1\2\1\34\1\35\1\36\1\2\1\37\55\0"+
-    "\1\3\74\0\1\40\26\0\2\41\1\0\4\41\1\42"+
-    "\43\41\10\0\1\43\41\0\1\44\12\0\1\45\40\0"+
-    "\2\46\1\0\10\46\1\0\13\46\1\47\23\46\15\0"+
-    "\1\10\6\0\1\50\44\0\1\51\3\0\1\20\1\0"+
-    "\1\50\45\0\1\51\2\0\1\20\1\0\1\50\52\0"+
-    "\1\50\46\0\1\52\1\0\1\20\52\0\1\53\5\0"+
-    "\22\53\47\0\1\54\50\0\1\55\42\0\1\56\60\0"+
-    "\1\57\40\0\1\60\7\0\1\61\10\0\1\62\36\0"+
-    "\1\63\5\0\1\64\53\0\1\65\57\0\1\66\35\0"+
-    "\1\67\66\0\1\70\50\0\1\71\56\0\1\45\2\43"+
-    "\1\0\50\43\52\44\1\72\13\0\1\73\37\0\2\46"+
-    "\4\0\45\46\22\0\1\74\52\0\1\75\5\0\22\75"+
-    "\35\0\1\76\61\0\1\77\41\0\1\100\67\0\1\101"+
-    "\45\0\1\102\53\0\1\103\52\0\1\104\54\0\1\105"+
-    "\51\0\1\106\56\0\1\64\52\0\1\107\32\0\1\110"+
-    "\73\0\1\111\1\0\10\44\1\3\41\44\1\72\22\0"+
-    "\1\112\3\0\1\113\5\0\1\113\40\0\1\114\5\0"+
-    "\22\114\31\0\1\115\55\0\1\116\14\0\1\117\44\0"+
-    "\1\120\44\0\1\63\65\0\1\111\43\0\1\121\44\0"+
-    "\1\122\71\0\1\123\46\0\1\63\56\0\1\124\47\0"+
-    "\1\123\40\0\1\125\40\0\1\126\3\0\1\113\5\0"+
-    "\1\113\34\0\2\127\2\0\1\130\52\0\1\131\5\0"+
-    "\22\131\42\0\1\63\51\0\1\122\52\0\1\132\42\0"+
-    "\1\133\71\0\1\134\53\0\1\135\52\0\1\63\50\0"+
-    "\1\136\26\0\1\137\3\0\1\113\5\0\1\113\40\0"+
-    "\1\130\52\0\1\140\5\0\22\140\44\0\1\141\55\0"+
-    "\1\101\43\0\1\63\53\0\1\142\55\0\1\63\31\0"+
-    "\1\143\3\0\1\113\5\0\1\113\40\0\1\144\5\0"+
-    "\22\144\52\0\1\101\45\0\1\136\30\0\1\145\3\0"+
-    "\1\113\5\0\1\113\40\0\1\146\5\0\22\146\27\0"+
-    "\1\113\5\0\1\113\40\0\1\147\5\0\22\147\23\0"+
-    "\1\150\5\0\22\150\23\0\1\151\5\0\22\151\23\0"+
-    "\1\152\5\0\22\152\23\0\1\153\5\0\22\153\23\0"+
-    "\1\154\5\0\22\154\23\0\1\155\5\0\22\155\23\0"+
-    "\1\156\5\0\22\156\23\0\1\157\5\0\22\157\23\0"+
-    "\1\160\5\0\22\160\23\0\1\161\5\0\22\161\23\0"+
-    "\1\162\5\0\22\162\23\0\1\163\5\0\22\163\23\0"+
-    "\1\164\5\0\22\164\23\0\1\165\5\0\22\165\23\0"+
-    "\1\166\5\0\22\166\23\0\1\167\5\0\22\167\23\0"+
-    "\1\170\5\0\22\170\23\0\1\171\5\0\22\171\23\0"+
-    "\1\172\5\0\22\172\23\0\1\173\5\0\22\173\23\0"+
-    "\1\174\5\0\22\174\23\0\1\175\5\0\22\175\1\0";
+    "\1\2\2\3\1\4\1\5\1\6\1\7\1\10\1\2"+
+    "\1\11\2\12\3\2\1\13\3\2\1\14\1\2\27\0"+
+    "\1\3\26\0\1\15\31\0\1\11\23\0\1\16\1\11"+
+    "\24\0\1\17\2\0\11\17\14\0\1\20\31\0\1\21"+
+    "\3\0\2\15\1\0\22\15\11\0\1\22\24\0\1\23"+
+    "\2\0\11\23\20\0\1\24\30\0\1\25\11\0\1\26"+
+    "\1\0\1\27\2\0\1\27\17\0\1\30\2\0\11\30"+
+    "\22\0\1\25\20\0\1\31\17\0\1\32\1\0\1\27"+
+    "\2\0\1\27\15\0\1\33\1\0\1\34\24\0\1\35"+
+    "\2\0\11\35\11\0\1\36\1\0\1\27\2\0\1\27"+
+    "\17\0\1\34\24\0\1\37\2\0\11\37\11\0\1\40"+
+    "\1\0\1\27\2\0\1\27\17\0\1\41\2\0\11\41"+
+    "\11\0\1\42\1\0\1\27\2\0\1\27\17\0\1\43"+
+    "\2\0\11\43\13\0\1\27\2\0\1\27\17\0\1\44"+
+    "\2\0\11\44\11\0\1\45\2\0\11\45\11\0\1\46"+
+    "\2\0\11\46\11\0\1\47\2\0\11\47\11\0\1\50"+
+    "\2\0\11\50\11\0\1\51\2\0\11\51\11\0\1\52"+
+    "\2\0\11\52\11\0\1\53\2\0\11\53\11\0\1\54"+
+    "\2\0\11\54\11\0\1\55\2\0\11\55\11\0\1\56"+
+    "\2\0\11\56\11\0\1\57\2\0\11\57\11\0\1\60"+
+    "\2\0\11\60\11\0\1\61\2\0\11\61\11\0\1\62"+
+    "\2\0\11\62\11\0\1\63\2\0\11\63\11\0\1\64"+
+    "\2\0\11\64\11\0\1\65\2\0\11\65\11\0\1\66"+
+    "\2\0\11\66\11\0\1\67\2\0\11\67\11\0\1\70"+
+    "\2\0\11\70\11\0\1\71\2\0\11\71\11\0\1\72"+
+    "\2\0\11\72";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[4687];
+    int [] result = new int[1092];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -264,14 +230,12 @@ public class Yylex {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\2\11\4\1\1\11\2\1\1\11\24\1\1\11"+
-    "\1\0\1\11\1\1\1\0\1\11\2\0\2\11\1\0"+
-    "\1\1\7\0\1\11\7\0\1\11\2\1\14\0\1\1"+
-    "\1\0\1\1\10\0\1\11\1\1\1\0\2\1\5\0"+
-    "\2\1\2\0\32\1\1\11";
+    "\1\0\2\11\2\1\2\11\6\1\1\0\1\1\2\0"+
+    "\2\1\2\0\1\1\1\0\1\1\1\11\1\1\1\0"+
+    "\36\1\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[125];
+    int [] result = new int[58];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -352,11 +316,6 @@ public class Yylex {
   // Helper to create tokens with line/col info
   private Token token(TokenType type) {
       return new Token(type, yytext(), yyline + 1, yycolumn + 1);
-  }
-  
-  // Helper for when we need to force specific text (optional)
-  private Token token(TokenType type, String text) {
-      return new Token(type, text, yyline + 1, yycolumn + 1);
   }
 
 
@@ -771,81 +730,46 @@ public class Yylex {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { System.err.println("Error: Illegal character <" + yytext() + "> at line " + (yyline+1)); 
+            { System.err.println("Error: Illegal character <" + yytext() + "> at line " + (yyline+1));
     return token(TokenType.ERROR);
             }
           // fall through
-          case 16: break;
+          case 9: break;
           case 2:
             { /* ignore */
             }
           // fall through
-          case 17: break;
+          case 10: break;
           case 3:
-            { return token(TokenType.LOGICAL_OP);
-            }
-          // fall through
-          case 18: break;
-          case 4:
             { return token(TokenType.ARITHMETIC_OP);
             }
           // fall through
-          case 19: break;
-          case 5:
+          case 11: break;
+          case 4:
             { return token(TokenType.PUNCTUATOR);
             }
           // fall through
-          case 20: break;
-          case 6:
+          case 12: break;
+          case 5:
             { return token(TokenType.INTEGER_LITERAL);
             }
           // fall through
-          case 21: break;
-          case 7:
-            { return token(TokenType.RELATIONAL_OP);
-            }
-          // fall through
-          case 22: break;
-          case 8:
-            { return token(TokenType.ASSIGNMENT_OP);
-            }
-          // fall through
-          case 23: break;
-          case 9:
+          case 13: break;
+          case 6:
             { return token(TokenType.IDENTIFIER);
             }
           // fall through
-          case 24: break;
-          case 10:
-            { return token(TokenType.STRING_LITERAL);
-            }
-          // fall through
-          case 25: break;
-          case 11:
-            { return token(TokenType.INC_DEC_OP);
-            }
-          // fall through
-          case 26: break;
-          case 12:
-            { return token(TokenType.KEYWORD);
-            }
-          // fall through
-          case 27: break;
-          case 13:
-            { return token(TokenType.CHAR_LITERAL);
-            }
-          // fall through
-          case 28: break;
-          case 14:
+          case 14: break;
+          case 7:
             { return token(TokenType.FLOAT_LITERAL);
             }
           // fall through
-          case 29: break;
-          case 15:
+          case 15: break;
+          case 8:
             { return token(TokenType.BOOLEAN_LITERAL);
             }
           // fall through
-          case 30: break;
+          case 16: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

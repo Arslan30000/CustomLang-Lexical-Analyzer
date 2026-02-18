@@ -1,0 +1,4 @@
+## Test 2: Complex math, brackets, and floats
+Value * ( 50 + 2 ) / 10 ;
+SciVal - 1.5e-10 ;
+( false ) ;

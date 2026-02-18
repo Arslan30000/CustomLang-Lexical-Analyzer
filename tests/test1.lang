@@ -1,0 +1,5 @@
+## Test 1: Testing basic variables and arithmetic
+Count + 10 ;
+Ratio - 3.14 ;
+true ;
+false ;

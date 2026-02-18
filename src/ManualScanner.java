@@ -1,11 +1,10 @@
+package src;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ManualScanner {
     private String source;
@@ -20,17 +19,7 @@ public class ManualScanner {
     private int[] tokenCounts = new int[TokenType.values().length];
 
     private SymbolTable symbolTable;
-    private ErrorHandler errorHandler; // New Error Handler
-    private static final Set<String> keywords;
-
-    static {
-        keywords = new HashSet<>();
-        keywords.add("start"); keywords.add("finish"); keywords.add("loop");
-        keywords.add("condition"); keywords.add("declare"); keywords.add("output");
-        keywords.add("input"); keywords.add("function"); keywords.add("return");
-        keywords.add("break"); keywords.add("continue"); keywords.add("else");
-        keywords.add("if"); 
-    }
+    private ErrorHandler errorHandler; 
 
     public ManualScanner(String filePath) throws IOException {
         byte[] bytes = Files.readAllBytes(Paths.get(filePath));
@@ -52,68 +41,53 @@ public class ManualScanner {
                 continue;
             }
 
-            // 2. Comments
-            if (c == '#') {
-                if (peekNext() == '#') {
-                    scanSingleLineComment(); 
-                    continue;
-                } else if (peekNext() == '|') {
-                    scanMultiLineComment(); 
-                    continue;
-                }
-                // Fallthrough if it's just '#'
+            // 2. Single Line Comments (##)
+            if (c == '#' && peekNext() == '#') {
+                scanSingleLineComment(); 
+                continue;
             }
 
             Token token = null;
 
-            // 3. Logic Dispatch
-            if (isDigit(c)) {
-                token = scanNumber();
-            } 
-            else if ((c == '+' || c == '-') && isDigit(peekNext())) {
-                token = scanNumber();
+            // 3. Logic Dispatch for the 7 Token Types
+            if (isDigit(c) || ((c == '+' || c == '-') && isDigit(peekNext()))) {
+                token = scanNumber(); // Handles Integer and Float
             }
             else if (isUpper(c)) {
-                token = scanIdentifier();
+                token = scanIdentifier(); // Handles Identifiers
             }
             else if (isLower(c)) {
-                token = scanKeywordOrBool();
-            }
-            else if (c == '"') {
-                token = scanString();
-            }
-            else if (c == '\'') {
-                token = scanChar();
+                token = scanBoolean(); // Handles Booleans (true/false)
             }
             else if (isOperatorOrPunctuator(c)) {
-                token = scanOperatorOrPunctuator();
+                token = scanOperatorOrPunctuator(); // Handles Arith Ops & Punctuators
             }
             else {
                 // ERROR RECOVERY: Invalid Character
                 String invalidChar = String.valueOf(advance());
                 errorHandler.addError("Invalid Char", line, col - 1, invalidChar, "Character not in alphabet");
-                continue; // Skip and continue scanning
+                continue; 
             }
 
-            if (token != null) {
-                if (token.getType() != TokenType.ERROR) {
-                    tokens.add(token);
-                    totalTokens++;
-                    tokenCounts[token.getType().ordinal()]++;
-                    System.out.println(token); 
-                }
+            if (token != null && token.getType() != TokenType.ERROR) {
+                tokens.add(token);
+                totalTokens++;
+                tokenCounts[token.getType().ordinal()]++;
+                System.out.println(token); 
             }
         }
 
         printStatistics();
-        errorHandler.printErrors(); // Report all errors at the end
+        errorHandler.printErrors(); 
         symbolTable.printTable();
         return tokens;
     }
 
+    // 1. IDENTIFIER: [A-Z][a-z0-9]{0,30}
     private Token scanIdentifier() {
-        advance(); 
-        while (isAlphaNumeric(peek())) {
+        advance(); // consume the Uppercase letter
+        
+        while (isLower(peek()) || isDigit(peek())) {
             advance();
         }
 
@@ -129,22 +103,25 @@ public class ManualScanner {
         return new Token(TokenType.IDENTIFIER, text, line, col - text.length());
     }
 
-    private Token scanKeywordOrBool() {
+    // 2. BOOLEAN LITERAL: (true|false)
+    private Token scanBoolean() {
         advance();
-        while (isLower(peek()) || isUpper(peek()) || isDigit(peek()) || peek() == '_') {
+        while (isLower(peek())) {
             advance();
         }
 
         String text = source.substring(start, current);
 
-        if (keywords.contains(text)) return new Token(TokenType.KEYWORD, text, line, col - text.length());
-        if (text.equals("true") || text.equals("false")) return new Token(TokenType.BOOLEAN_LITERAL, text, line, col - text.length());
+        if (text.equals("true") || text.equals("false")) {
+            return new Token(TokenType.BOOLEAN_LITERAL, text, line, col - text.length());
+        }
 
-        // Error: Wrong starting character (Lowercase start but not a keyword)
+        // If it starts with lowercase but isn't true/false, it's an invalid identifier
         errorHandler.addError("Invalid ID", line, col - text.length(), text, "Identifiers must start with Uppercase");
         return new Token(TokenType.ERROR, text, line, col - text.length());
     }
 
+    // 3 & 4. INTEGER LITERAL AND FLOATING POINT LITERAL
     private Token scanNumber() {
         if (peek() == '+' || peek() == '-') advance();
         
@@ -173,92 +150,53 @@ public class ManualScanner {
         }
         
         String text = source.substring(start, current);
-        
         boolean isFloat = text.contains(".") || text.contains("e") || text.contains("E");
         
         return isFloat ? new Token(TokenType.FLOAT_LITERAL, text, line, col - text.length()) 
                        : new Token(TokenType.INTEGER_LITERAL, text, line, col - text.length());
     }
 
-    private Token scanString() {
-        advance(); 
-        while (peek() != '"' && !isAtEnd()) {
-            if (peek() == '\n') { line++; col = 1; }
-            advance();
-        }
-
-        if (isAtEnd()) {
-            errorHandler.addError("Unterminated", line, col, "\"", "String literal not closed");
-            return new Token(TokenType.ERROR, "Unterminated", line, col);
-        }
-
-        advance(); 
-        String value = source.substring(start, current);
-        return new Token(TokenType.STRING_LITERAL, value, line, col - value.length());
-    }
-
-    private void scanMultiLineComment() {
+    // 5. SINGLE LINE COMMENT: ##[^\n]*
+    private void scanSingleLineComment() {
         commentsRemoved++;
-        advance(); advance(); 
-        while (!isAtEnd()) {
-            if (peek() == '\n') { line++; col = 1; }
-            if (peek() == '|' && peekNext() == '#') {
-                advance(); advance(); 
-                return;
-            }
+        while (peek() != '\n' && !isAtEnd()) {
             advance();
         }
-        errorHandler.addError("Unclosed Comment", line, col, "#|", "Multi-line comment not closed");
     }
     
     private boolean isOperatorOrPunctuator(char c) {
-        return "()[]{};:+-*/%!=<>&|".indexOf(c) != -1;
+        return "()[]{};:,+-*/%".indexOf(c) != -1;
     }
 
-    private Token scanChar() {
-        advance(); 
-        if (peek() == '\\') { advance(); advance(); } 
-        else { advance(); }
-        if (peek() == '\'') {
-            advance(); 
-            String val = source.substring(start, current);
-            return new Token(TokenType.CHAR_LITERAL, val, line, col - val.length());
-        }
-        return new Token(TokenType.ERROR, "Invalid Char", line, col);
-    }
-
+    // 6 & 7. ARITHMETIC OPERATORS AND PUNCTUATORS
     private Token scanOperatorOrPunctuator() {
         char c = advance();
         String text = String.valueOf(c);
+        
         switch (c) {
-            case '(': case ')': case '{': case '}': case '[': case ']': case ',': case ';': case ':': return new Token(TokenType.PUNCTUATOR, text, line, col - 1);
-            case '+': if (match('+')) return makeToken(TokenType.INC_DEC_OP, "++"); if (match('=')) return makeToken(TokenType.ASSIGNMENT_OP, "+="); return makeToken(TokenType.ARITHMETIC_OP, "+");
-            case '-': if (match('-')) return makeToken(TokenType.INC_DEC_OP, "--"); if (match('=')) return makeToken(TokenType.ASSIGNMENT_OP, "-="); return makeToken(TokenType.ARITHMETIC_OP, "-");
-            case '*': if (match('*')) return makeToken(TokenType.ARITHMETIC_OP, "**"); if (match('=')) return makeToken(TokenType.ASSIGNMENT_OP, "*="); return makeToken(TokenType.ARITHMETIC_OP, "*");
-            case '/': if (match('=')) return makeToken(TokenType.ASSIGNMENT_OP, "/="); return makeToken(TokenType.ARITHMETIC_OP, "/");
-            case '%': return makeToken(TokenType.ARITHMETIC_OP, "%");
-            case '=': if (match('=')) return makeToken(TokenType.RELATIONAL_OP, "=="); return makeToken(TokenType.ASSIGNMENT_OP, "=");
-            case '!': if (match('=')) return makeToken(TokenType.RELATIONAL_OP, "!="); return makeToken(TokenType.LOGICAL_OP, "!");
-            case '<': if (match('=')) return makeToken(TokenType.RELATIONAL_OP, "<="); return makeToken(TokenType.RELATIONAL_OP, "<");
-            case '>': if (match('=')) return makeToken(TokenType.RELATIONAL_OP, ">="); return makeToken(TokenType.RELATIONAL_OP, ">");
-            case '&': if (match('&')) return makeToken(TokenType.LOGICAL_OP, "&&"); break;
-            case '|': if (match('|')) return makeToken(TokenType.LOGICAL_OP, "||"); break;
+            case '(': case ')': case '{': case '}': case '[': case ']': 
+            case ',': case ';': case ':': 
+                return new Token(TokenType.PUNCTUATOR, text, line, col - 1);
+            
+            case '+': case '-': case '*': case '/': case '%':
+                return new Token(TokenType.ARITHMETIC_OP, text, line, col - 1);
         }
+        
         return new Token(TokenType.ERROR, "Unknown: " + text, line, col - 1);
     }
 
-    private void handleWhitespace() { char c = advance(); if (c == '\n') { line++; col = 1; } }
-    private void scanSingleLineComment() { commentsRemoved++; while (peek() != '\n' && !isAtEnd()) { advance(); } }
+    // --- UTILITY HELPERS ---
+    private void handleWhitespace() { 
+        char c = advance(); 
+        if (c == '\n') { line++; col = 1; } 
+    }
     private boolean isDigit(char c) { return c >= '0' && c <= '9'; }
     private boolean isUpper(char c) { return c >= 'A' && c <= 'Z'; }
     private boolean isLower(char c) { return c >= 'a' && c <= 'z'; }
-    private boolean isAlphaNumeric(char c) { return isLower(c) || isUpper(c) || isDigit(c) || c == '_'; }
     private char advance() { col++; return source.charAt(current++); }
     private char peek() { return isAtEnd() ? '\0' : source.charAt(current); }
     private char peekNext() { return (current + 1 >= source.length()) ? '\0' : source.charAt(current + 1); }
-    private boolean match(char expected) { if (isAtEnd() || source.charAt(current) != expected) return false; current++; col++; return true; }
     private boolean isAtEnd() { return current >= source.length(); }
-    private Token makeToken(TokenType type, String lexeme) { return new Token(type, lexeme, line, col - lexeme.length()); }
     
     private void printStatistics() {
         System.out.println("\n--- Scanner Statistics ---");
@@ -266,7 +204,7 @@ public class ManualScanner {
         System.out.println("Lines Processed: " + line);
         System.out.println("Comments Removed: " + commentsRemoved);
         for (TokenType t : TokenType.values()) {
-            if (t != TokenType.EOF && t != TokenType.ERROR) {
+            if (t != TokenType.EOF && t != TokenType.ERROR && tokenCounts[t.ordinal()] > 0) {
                 System.out.println(String.format("%-15s : %d", t, tokenCounts[t.ordinal()]));
             }
         }
@@ -275,7 +213,7 @@ public class ManualScanner {
 
     public static void main(String[] args) {
         try {
-            String file = "tests/test3.lang"; 
+            String file = "tests/test5.lang"; 
             if (args.length > 0) file = args[0];
             
             ManualScanner scanner = new ManualScanner(file);

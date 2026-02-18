@@ -1,0 +1,5 @@
+## Test 4: Deliberate Errors for ErrorHandler
+123Var + 5 ;     ## Error: ID cannot start with digit
+@ ;              ## Error: Invalid character
+1.2.3 ;          ## Error: Malformed float
+ThisIsWayTooLongOfAnIdentifierForScanner ; ## Error: Length > 31

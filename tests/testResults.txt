@@ -1,0 +1,184 @@
+test1:
+<IDENTIFIER, "Count", Line: 2, Col: 1>
+<ARITHMETIC_OP, "+", Line: 2, Col: 7>
+<INTEGER_LITERAL, "10", Line: 2, Col: 9>
+<PUNCTUATOR, ";", Line: 2, Col: 12>
+<IDENTIFIER, "Ratio", Line: 3, Col: 1>
+<ARITHMETIC_OP, "-", Line: 3, Col: 7>
+<FLOAT_LITERAL, "3.14", Line: 3, Col: 9>
+<PUNCTUATOR, ";", Line: 3, Col: 14>
+<BOOLEAN_LITERAL, "true", Line: 4, Col: 1>
+<PUNCTUATOR, ";", Line: 4, Col: 6>
+<BOOLEAN_LITERAL, "false", Line: 5, Col: 1>
+<PUNCTUATOR, ";", Line: 5, Col: 7>
+
+--- Scanner Statistics ---
+Total Tokens: 12
+Lines Processed: 5
+Comments Removed: 1
+IDENTIFIER      : 2
+INTEGER_LITERAL : 1
+FLOAT_LITERAL   : 1
+BOOLEAN_LITERAL : 2
+ARITHMETIC_OP   : 2
+PUNCTUATOR      : 4
+--------------------------
+
+
+--- Symbol Table ---
+Name                 Type       First Line      Frequency
+Ratio                N/A        3               1         
+Count                N/A        2               1
+--------------------
+
+Test2:
+<IDENTIFIER, "Value", Line: 2, Col: 1>
+<ARITHMETIC_OP, "*", Line: 2, Col: 7>
+<PUNCTUATOR, "(", Line: 2, Col: 9>
+<INTEGER_LITERAL, "50", Line: 2, Col: 11>
+<ARITHMETIC_OP, "+", Line: 2, Col: 14>
+<INTEGER_LITERAL, "2", Line: 2, Col: 16>
+<PUNCTUATOR, ")", Line: 2, Col: 18>
+<ARITHMETIC_OP, "/", Line: 2, Col: 20>
+<INTEGER_LITERAL, "10", Line: 2, Col: 22>
+<PUNCTUATOR, ";", Line: 2, Col: 25>
+<IDENTIFIER, "Sci", Line: 3, Col: 1>
+<IDENTIFIER, "Val", Line: 3, Col: 4>
+<ARITHMETIC_OP, "-", Line: 3, Col: 8>
+<FLOAT_LITERAL, "1.5e-10", Line: 3, Col: 10>
+<PUNCTUATOR, ";", Line: 3, Col: 18>
+<PUNCTUATOR, "(", Line: 4, Col: 1>
+<BOOLEAN_LITERAL, "false", Line: 4, Col: 3>
+<PUNCTUATOR, ")", Line: 4, Col: 9>
+<PUNCTUATOR, ";", Line: 4, Col: 11>
+
+--- Scanner Statistics ---
+Total Tokens: 19
+Lines Processed: 4
+Comments Removed: 1
+IDENTIFIER      : 3
+INTEGER_LITERAL : 3
+FLOAT_LITERAL   : 1
+BOOLEAN_LITERAL : 1
+ARITHMETIC_OP   : 4
+PUNCTUATOR      : 7
+--------------------------
+
+
+--- Symbol Table ---
+Name                 Type       First Line      Frequency
+Val                  N/A        3               1         
+Value                N/A        2               1
+Sci                  N/A        3               1
+--------------------
+
+test3:
+<PUNCTUATOR, "{", Line: 2, Col: 1>
+<IDENTIFIER, "Data", Line: 3, Col: 3>
+<ARITHMETIC_OP, "%", Line: 3, Col: 8>
+<INTEGER_LITERAL, "5", Line: 3, Col: 10>
+<PUNCTUATOR, ";", Line: 3, Col: 12>
+<PUNCTUATOR, "[", Line: 4, Col: 3>
+<IDENTIFIER, "Array", Line: 4, Col: 5>
+<IDENTIFIER, "Item", Line: 4, Col: 10>
+<PUNCTUATOR, ",", Line: 4, Col: 15>
+<INTEGER_LITERAL, "100", Line: 4, Col: 17>
+<PUNCTUATOR, "]", Line: 4, Col: 21>
+<PUNCTUATOR, ";", Line: 4, Col: 23>
+<PUNCTUATOR, "}", Line: 5, Col: 1>
+
+--- Scanner Statistics ---
+Total Tokens: 13
+Lines Processed: 5
+Comments Removed: 1
+IDENTIFIER      : 3
+INTEGER_LITERAL : 2
+ARITHMETIC_OP   : 1
+PUNCTUATOR      : 7
+--------------------------
+
+
+--- Symbol Table ---
+Name                 Type       First Line      Frequency
+Array                N/A        4               1         
+Item                 N/A        4               1
+Data                 N/A        3               1
+--------------------
+
+test4:
+<INTEGER_LITERAL, "123", Line: 2, Col: 1>
+<IDENTIFIER, "Var", Line: 2, Col: 4>
+<ARITHMETIC_OP, "+", Line: 2, Col: 8>
+<INTEGER_LITERAL, "5", Line: 2, Col: 10>
+<PUNCTUATOR, ";", Line: 2, Col: 12>
+<PUNCTUATOR, ";", Line: 3, Col: 3>
+<FLOAT_LITERAL, "1.2.3", Line: 4, Col: 1>
+<PUNCTUATOR, ";", Line: 4, Col: 7>
+<IDENTIFIER, "This", Line: 5, Col: 1>
+<IDENTIFIER, "Is", Line: 5, Col: 5>
+<IDENTIFIER, "Way", Line: 5, Col: 7>
+<IDENTIFIER, "Too", Line: 5, Col: 10>
+<IDENTIFIER, "Long", Line: 5, Col: 13>
+<IDENTIFIER, "Of", Line: 5, Col: 17>
+<IDENTIFIER, "An", Line: 5, Col: 19>
+<IDENTIFIER, "Identifier", Line: 5, Col: 21>
+<IDENTIFIER, "For", Line: 5, Col: 31>
+<IDENTIFIER, "Scanner", Line: 5, Col: 34>
+<PUNCTUATOR, ";", Line: 5, Col: 42>
+
+--- Scanner Statistics ---
+Total Tokens: 19
+Lines Processed: 5
+Comments Removed: 5
+IDENTIFIER      : 11
+INTEGER_LITERAL : 2
+FLOAT_LITERAL   : 1
+ARITHMETIC_OP   : 1
+PUNCTUATOR      : 4
+--------------------------
+
+
+=== ERROR REPORT ===
+ERROR: [Invalid Char   ] Line: 3   Col: 1   Lexeme: "@         " -> Character not in alphabet
+ERROR: [Malformed Literal] Line: 4   Col: 6   Lexeme: ".3        " -> Float cannot have multiple decimal points
+====================
+
+
+--- Symbol Table ---
+Name                 Type       First Line      Frequency
+Scanner              N/A        5               1
+Identifier           N/A        5               1
+Too                  N/A        5               1
+Var                  N/A        2               1
+Of                   N/A        5               1
+Long                 N/A        5               1
+For                  N/A        5               1
+This                 N/A        5               1
+Is                   N/A        5               1
+An                   N/A        5               1
+Way                  N/A        5               1
+--------------------
+test5:
+<IDENTIFIER, "Var", Line: 4, Col: 1>
+<IDENTIFIER, "A", Line: 4, Col: 4>
+<ARITHMETIC_OP, "+", Line: 4, Col: 6>
+<IDENTIFIER, "Var", Line: 4, Col: 8>
+<IDENTIFIER, "B", Line: 4, Col: 11>
+<PUNCTUATOR, ";", Line: 4, Col: 13>
+
+--- Scanner Statistics ---
+Total Tokens: 6
+Lines Processed: 6
+Comments Removed: 3
+IDENTIFIER      : 4
+ARITHMETIC_OP   : 1
+PUNCTUATOR      : 1
+--------------------------
+
+
+--- Symbol Table ---
+Name                 Type       First Line      Frequency
+A                    N/A        4               1
+B                    N/A        4               1
+Var                  N/A        4               2
+--------------------

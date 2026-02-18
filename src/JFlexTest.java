@@ -1,9 +1,10 @@
+package src;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class JFlexTest {
     public static void main(String[] args) {
-        String file = "tests/test3.lang";
+        String file = "tests/test1.lang";
         
         System.out.println("=== Testing JFlex Scanner ===");
         

@@ -1,63 +1,28 @@
 ================================================================================
-                        LANGUAGE LEXICAL SPECIFICATION
+                        LANGUAGE GRAMMAR 
 ================================================================================
 
-1. KEYWORDS
-   The following words are reserved and cannot be used as identifiers:
-   - start, finish
-   - declare, input, output
-   - if, else
-   - loop, break, continue
-   - function, return, condition
+<Program>      ::= <StatementList>
+<StatementList>::= <Statement> | <Statement> <StatementList>
+<Statement>    ::= <Expression> ";" | <Block>
 
-2. IDENTIFIERS
-   - Format: Must start with an Uppercase letter [A-Z].
-   - Followed by: Any combination of letters [a-zA-Z], digits [0-9], or underscore [_].
-   - Constraint: Maximum length is 31 characters.
-   - Regex: [A-Z][a-zA-Z0-9_]{0,30}
+<Block>        ::= "{" <StatementList> "}"
 
-3. LITERALS
-   a) Integer Literals
-      - Sequence of digits.
-      - Can be optionally signed (+/-).
-      - Regex: [+-]?[0-9]+
+<Expression>   ::= <Term> | <Expression> <ArithOp> <Term>
+<Term>         ::= <Factor> | <Term> <MulOp> <Factor>
+<Factor>       ::= <Identifier> | <Literal> | "(" <Expression> ")"
 
-   b) Floating Point Literals
-      - Digits containing a decimal point.
-      - Optional exponent part (e or E).
-      - Constraint: Max 6 digits after the decimal point (precision check).
-      - Regex: [+-]?[0-9]+\.[0-9]{1,6}([eE][+-]?[0-9]+)?
+<ArithOp>      ::= "+" | "-"
+<MulOp>        ::= "*" | "/" | "%"
 
-   c) Boolean Literals
-      - Values: true, false
+<Literal>      ::= <Integer> | <Float> | <Boolean>
 
-   d) String Literals
-      - Enclosed in double quotes (").
-      - Can contain spaces and special characters.
-      - Regex: "[^"\n]*"
+<Identifier>   ::= [A-Z][a-z0-9]{0,30}
+<Integer>      ::= [+-]?[0-9]+
+<Float>        ::= [+-]?[0-9]+\.[0-9]{1,6}([eE][+-]?[0-9]+)?
+<Boolean>      ::= "true" | "false"
 
-   e) Character Literals
-      - Enclosed in single quotes (').
-      - Represents a single character or escape sequence.
-      - Regex: '([^'\\\n]|\\.)'
-
-4. COMMENTS
-   a) Single-Line Comment
-      - Starts with '##' and continues to the end of the line.
-      - Regex: ##.*
-
-   b) Multi-Line Comment
-      - Starts with '#|' and ends with '|#'.
-      - Can span multiple lines.
-
-5. OPERATORS & PUNCTUATORS
-   a) Arithmetic: +, -, *, /, %, **, ++, --
-   b) Relational: <, >, <=, >=, ==, !=
-   c) Logical:    &&, ||, !
-   d) Assignment: =, +=, -=, *=, /=
-   e) Punctuators: ( ) { } [ ] , ; :
-
-6. WHITESPACE
-   - Spaces, Tabs (\t), Newlines (\n, \r) are skipped by the scanner unless inside a string.
+<Punctuator>   ::= "(" | ")" | "{" | "}" | "[" | "]" | "," | ";" | ":"
+<Comment>      ::= "##" <AnyCharExceptNewline>
 
 ================================================================================

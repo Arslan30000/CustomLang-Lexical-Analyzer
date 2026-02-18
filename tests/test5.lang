@@ -1,0 +1,6 @@
+## This file strictly tests comments and whitespace
+   ## It should ignore all this text completely
+
+VarA + VarB ;
+
+## Done with testing
